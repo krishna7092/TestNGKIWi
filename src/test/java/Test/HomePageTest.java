@@ -1,7 +1,6 @@
 package Test;
 
 import base.Base;
-import genericutils.Genericmethods;
 import genericutils.staticutils;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

@@ -1,15 +1,16 @@
 package base;
 
 import PageObjects.HomePage;
-import genericutils.Genericmethods;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
@@ -20,6 +21,8 @@ public class Base {
    public  WebDriver driver;
     public Genericmethods generic;
     public HomePage homePage;
+
+
 
    static{
        System.out.println("first static");
@@ -64,5 +67,14 @@ public class Base {
     @BeforeMethod(groups = "devtools")
     public void devtools(){
        //driver change into chrome detools
+    }
+
+
+    public String takescreenshot(String name, WebDriver driver) throws IOException {
+        TakesScreenshot screen = (TakesScreenshot) this.driver;
+        File screenshotAs = screen.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(screenshotAs,new File("target/screenshots/" +name+".png"));
+        return "target/screenshots/" +name+".png";
+
     }
 }

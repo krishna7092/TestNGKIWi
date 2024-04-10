@@ -1,4 +1,4 @@
-package genericutils;
+package base;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,15 +7,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import Listeners.GenerateExtentreports;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.WebDriver;
 
 public class Genericmethods {
+
 	WebDriver driver;
 	public Genericmethods(WebDriver driver) {
 		// TODO Auto-generated constructor stub
 		System.out.println("four driver with genric utils");
+
 		this.driver=driver;
 	}
 	

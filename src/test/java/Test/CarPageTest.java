@@ -2,7 +2,7 @@ package Test;
 
 import PageObjects.Carpage;
 import base.Base;
-import genericutils.Genericmethods;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CarPageTest extends Base {
@@ -27,7 +27,7 @@ public class CarPageTest extends Base {
         clickcar=homePage.clickcar();
         generic.switchwindow("child");
         String currenytext=clickcar.getcurrencytext();
-
+        Assert.assertEquals(currenytext,"hello");
     }
 
 
