@@ -1,5 +1,6 @@
 package Test;
 
+import Listeners.Retry;
 import PageObjects.Carpage;
 import base.Base;
 import org.testng.Assert;
@@ -21,7 +22,7 @@ public class CarPageTest extends Base {
     }
 
 
-    @Test //here depends on wont make sence i just mentioned here
+    @Test (retryAnalyzer = Retry.class)//here depends on wont make sence i just mentioned here
     public void currency(){
         homePage.closepopup(5);
         clickcar=homePage.clickcar();

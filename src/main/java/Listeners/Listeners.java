@@ -14,12 +14,21 @@ import java.io.IOException;
 public class Listeners extends Base implements ITestListener {
 
 
+    @Override
+    public void onTestSkipped(ITestResult result) {
+        ITestListener.super.onTestSkipped(result);
+        thrd.get().skip("skipped due to rerun");
+    }
+
     ExtentReports report=GenerateExtentreports.generatereport();
     ExtentTest test;
+
+    ThreadLocal<ExtentTest> thrd=new ThreadLocal<>();
     @Override
     public void onTestStart(ITestResult result) {
         ITestListener.super.onTestStart(result);
-        test = report.createTest(result.getMethod().getMethodName());
+    test = report.createTest(result.getMethod().getMethodName());
+        thrd.set(test);
     }
 
     @Override
@@ -30,7 +39,7 @@ public class Listeners extends Base implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         ITestListener.super.onTestFailure(result);
-        test.fail(result.getThrowable());
+         thrd.get().fail(result.getThrowable());
         String path;
         try {
             driver= (WebDriver)result.getTestClass().getRealClass().getField("driver").get(result.
@@ -43,7 +52,7 @@ public class Listeners extends Base implements ITestListener {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        test.addScreenCaptureFromPath(System.getProperty("user.dir") + "/" +path,"failed");
+        thrd.get().addScreenCaptureFromPath(System.getProperty("user.dir") + "/" +path,"failed");
 
 
     }
@@ -58,4 +67,7 @@ public class Listeners extends Base implements ITestListener {
         ITestListener.super.onFinish(context);
         report.flush();
     }
+
+
+
 }
